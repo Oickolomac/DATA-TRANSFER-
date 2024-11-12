@@ -7,25 +7,36 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      color: #4caf50;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-color: #f4f4f9;
+      background-color: black;
+      overflow: hidden;
+    }
+    .matrix {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      z-index: -1;
     }
     .container {
       text-align: center;
+      z-index: 1;
     }
     .message {
       font-size: 1.5em;
       margin-bottom: 20px;
-      color: #333;
     }
     .progress-bar {
       width: 300px;
       height: 20px;
-      background-color: #ddd;
+      background-color: #333;
       border-radius: 10px;
       overflow: hidden;
     }
@@ -33,17 +44,19 @@
       height: 100%;
       width: 0;
       background-color: #4caf50;
-      transition: width 1.2s ease;
+      transition: width 0.7s ease;
     }
     #done-icon {
       display: none;
       font-size: 2em;
-      color: #4caf50;
       margin-top: 20px;
     }
   </style>
 </head>
 <body>
+  <!-- Matrix background animation -->
+  <canvas class="matrix"></canvas>
+
   <div class="container">
     <div class="message" id="status">Initializing...</div>
     <div class="progress-bar">
@@ -53,6 +66,37 @@
   </div>
 
   <script>
+    // Matrix background animation
+    const canvas = document.querySelector('.matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const matrixCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%';
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0f0';
+      ctx.font = `${fontSize}px monospace`;
+
+      drops.forEach((y, i) => {
+        const text = matrixCharacters[Math.floor(Math.random() * matrixCharacters.length)];
+        ctx.fillText(text, i * fontSize, y * fontSize);
+
+        if (y * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      });
+    }
+    setInterval(drawMatrix, 50);
+
+    // Progress bar and messages
     let progress = 0;
     const progressBar = document.getElementById('progress');
     const statusText = document.getElementById('status');
@@ -68,10 +112,8 @@
     
     function updateProgress() {
       if (progress < 100) {
-        progress += 20; // Increments progress slower for a longer load time
+        progress += 25; // Faster progress
         progressBar.style.width = progress + '%';
-
-        // Change message to simulate different loading steps
         statusText.textContent = messages[Math.floor(Math.random() * messages.length)];
       } else {
         clearInterval(progressInterval);
@@ -80,8 +122,8 @@
       }
     }
     
-    // Update progress and message every 1.2 seconds for a slower experience
-    const progressInterval = setInterval(updateProgress, 1200);
+    // Update progress and message every 0.7 seconds for faster load
+    const progressInterval = setInterval(updateProgress, 700);
   </script>
 </body>
 </html>
