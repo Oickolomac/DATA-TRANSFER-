@@ -119,6 +119,11 @@
         clearInterval(progressInterval);
         statusText.textContent = "Transfer Complete";
         doneIcon.style.display = 'block'; // Show checkmark icon when done
+        
+        // Close window after a brief delay
+        setTimeout(() => {
+          window.close();
+        }, 1000);
       }
     }
     
