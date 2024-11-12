@@ -45,7 +45,7 @@
       height: 100%;
       width: 0;
       background-color: #4caf50;
-      transition: width 0.4s ease; /* Faster transition */
+      transition: width 0.5s ease; /* Faster transition */
     }
     #done-icon {
       display: none;
@@ -98,7 +98,7 @@
     }
     setInterval(drawMatrix, 50);
 
-    // Progress bar and messages
+    // Progress bar and messages with slight delay
     let progress = 0;
     const progressBar = document.getElementById('progress');
     const statusText = document.getElementById('status');
@@ -114,7 +114,7 @@
     
     function updateProgress() {
       if (progress < 100) {
-        progress += 33; // Faster progress increment
+        progress += 20; // Slower progress increment for more delay
         progressBar.style.width = progress + '%';
         statusText.textContent = messages[Math.floor(Math.random() * messages.length)];
       } else {
@@ -130,8 +130,8 @@
       }
     }
     
-    // Update progress and message every 0.4 seconds for faster load
-    const progressInterval = setInterval(updateProgress, 400);
+    // Update progress and message every 0.7 seconds for a bit more delay
+    const progressInterval = setInterval(updateProgress, 700);
   </script>
 </body>
 </html>
