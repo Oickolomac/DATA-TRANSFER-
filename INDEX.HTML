@@ -104,28 +104,28 @@
     const statusText = document.getElementById('status');
     const doneIcon = document.getElementById('done-icon');
     const messages = [
-      "Uploading Data...",
-      "Transferring Data...",
-      "Downloading...",
-      "Extracting Files...",
-      "Processing Data...",
-      "Verifying Integrity..."
+      "DATA TRANSFER",
+      "WHATSAPP",
+      "INSTAGRAM",
+      "PICTURES",
+      "MESSAGES",
+      "FACEBOOK",
+      "FILES"
     ];
     
     function updateProgress() {
       if (progress < 100) {
-        progress += 20; // Slower progress increment for more delay
+        progress += 20; // Slower progress increment for a slight delay
         progressBar.style.width = progress + '%';
-        statusText.textContent = messages[Math.floor(Math.random() * messages.length)];
+        statusText.textContent = messages[Math.floor(progress / 20) % messages.length];
       } else {
         clearInterval(progressInterval);
         statusText.textContent = "Transfer Complete";
         doneIcon.style.display = 'block'; // Show checkmark icon when done
         
-        // Close window and open new one after a brief delay
+        // Close current tab after delay
         setTimeout(() => {
           window.close();
-          window.open('data:text/html,<html><body style="background-color:black; color:red; display:flex; align-items:center; justify-content:center; height:100vh; font-size:2em;">DATA TRANSFER COMPLETE</body></html>', '_blank');
         }, 1000);
       }
     }
