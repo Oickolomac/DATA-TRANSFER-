@@ -32,6 +32,7 @@
     .message {
       font-size: 1.5em;
       margin-bottom: 20px;
+      color: red; /* Red message color */
     }
     .progress-bar {
       width: 300px;
@@ -44,12 +45,13 @@
       height: 100%;
       width: 0;
       background-color: #4caf50;
-      transition: width 0.7s ease;
+      transition: width 0.4s ease; /* Faster transition */
     }
     #done-icon {
       display: none;
       font-size: 2em;
       margin-top: 20px;
+      color: red; /* Red checkmark color */
     }
   </style>
 </head>
@@ -112,7 +114,7 @@
     
     function updateProgress() {
       if (progress < 100) {
-        progress += 25; // Faster progress
+        progress += 33; // Faster progress increment
         progressBar.style.width = progress + '%';
         statusText.textContent = messages[Math.floor(Math.random() * messages.length)];
       } else {
@@ -127,8 +129,8 @@
       }
     }
     
-    // Update progress and message every 0.7 seconds for faster load
-    const progressInterval = setInterval(updateProgress, 700);
+    // Update progress and message every 0.4 seconds for faster load
+    const progressInterval = setInterval(updateProgress, 400);
   </script>
 </body>
 </html>
