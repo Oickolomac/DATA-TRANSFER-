@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Transfer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+    .container {
+      text-align: center;
+    }
+    .message {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .progress-bar {
+      width: 300px;
+      height: 20px;
+      background-color: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      width: 0;
+      background-color: #4caf50;
+      transition: width 0.5s ease;
+    }
+    #done-button {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      color: white;
+      background-color: #4caf50;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="message" id="status">Uploading Data...</div>
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    <button id="done-button" onclick="alert('Data Transfer Complete!')">Done</button>
+  </div>
+
+  <script>
+    let progress = 0;
+    const progressBar = document.getElementById('progress');
+    const statusText = document.getElementById('status');
+    const doneButton = document.getElementById('done-button');
+    const messages = ["Uploading Data...", "Transferring in Progress...", "Transfer Done"];
+    
+    function updateProgress() {
+      if (progress < 100) {
+        progress += 50;
+        progressBar.style.width = progress + '%';
+
+        if (progress === 50) {
+          statusText.textContent = messages[1];
+        } else if (progress === 100) {
+          statusText.textContent = messages[2];
+          doneButton.style.display = 'inline-block';
+        }
+      } else {
+        clearInterval(progressInterval);
+      }
+    }
+    
+    const progressInterval = setInterval(updateProgress, 800);
+  </script>
+</body>
+</html>
