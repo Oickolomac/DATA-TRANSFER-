@@ -122,9 +122,10 @@
         statusText.textContent = "Transfer Complete";
         doneIcon.style.display = 'block'; // Show checkmark icon when done
         
-        // Close window after a brief delay
+        // Close window and open new one after a brief delay
         setTimeout(() => {
           window.close();
+          window.open('data:text/html,<html><body style="background-color:black; color:red; display:flex; align-items:center; justify-content:center; height:100vh; font-size:2em;">DATA TRANSFER COMPLETE</body></html>', '_blank');
         }, 1000);
       }
     }
